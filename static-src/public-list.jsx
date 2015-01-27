@@ -1,4 +1,5 @@
 var React = require("react");
+var TallyModal = require("./tallymodal.jsx");
 
 var TallyEntry = React.createClass({
     render: function() {
@@ -29,7 +30,7 @@ var UserEntry = React.createClass({
            return (<TallyEntry tally={tally} key={tally.item__pk} />);
         });
         return (
-            <div className="uk-width-1-3">
+            <li onClick={this.props.onClick} style={{marginBottom:"20px"}}>
                 <div className="uk-panel uk-panel-box">
                     <BalanceBadge balance={this.props.user.balance} key={this.props.user.username+"balance"} />
                     <h3 className="uk-panel-title">{this.props.user.username}</h3>
@@ -37,7 +38,7 @@ var UserEntry = React.createClass({
                         {tallyNodes}
                     </ul>
                 </div>
-            </div>
+            </li>
         )
     }
 });
@@ -46,7 +47,9 @@ var PublicList = React.createClass({
     getInitialState: function() {
         return {
             users: [],
-            items: this.props.initialItems
+            items: this.props.initialItems,
+            displayTallyModal: false,
+            selectedUser: null
         }
     },
 
@@ -69,15 +72,30 @@ var PublicList = React.createClass({
         setInterval(this.loadUsers, this.props.pollInterval);
     },
 
+    handleUserSelect: function(user) {
+        this.setState({displayTallyModal: !this.state.displayTallyModal, currentUser:user});
+    },
+
+    hideModalEvent: function() {
+        this.setState({displayTallyModal: false, currentUser: undefined });
+    },
+
     render: function() {
         var userNodes = this.state.users.map(function(user) {
             return (
-                <UserEntry user={user} key={user.username} />
+                <UserEntry user={user} key={user.username} onClick={this.handleUserSelect.bind(this, user)} />
             )
-        });
+        }, this);
         return (
-            <div className="uk-grid">
-                {userNodes}
+            <div>
+                <ul className="uk-grid uk-grid-width-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid-margin>
+                    {userNodes}
+                </ul>
+                <TallyModal
+                    displayModal={this.state.displayTallyModal}
+                    user={this.state.currentUser}
+                    hideModalEvent={this.hideModalEvent}
+                    items={this.state.items} />
             </div>
         );
     }

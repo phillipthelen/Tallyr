@@ -7,3 +7,15 @@ Public
 {% block content %}
     <div id="public_list"></div>
 {% endblock %}
+
+{% block endscript %}
+var items_list = [
+    {% for item in items_list %}
+        {
+            "pk": {{ item.pk }},
+            "name": "{{ item.name }}",
+            "value": {{ item.value }}
+        },
+    {% endfor %}
+    ];
+{% endblock %}

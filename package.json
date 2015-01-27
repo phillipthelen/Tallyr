@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "start": "watchify -d static-src/main.js -o static/js/bundle.js -v",
+    "build": "NODE_ENV=production browserify [YOUR MAIN.JS OR SIMILAR FILE] | uglifyjs -cm > [YOUR OUTPUT BUNDLE.JS]"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ],
+      "envify"
+    ]
+  },
+  "dependencies": {
+    "jquery": "^2.1.3"
+  }
+}

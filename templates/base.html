@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}Main{% endblock %} - Strichr</title>
+    <link rel="stylesheet" href="/static/css/uikit.min.css" />
+</head>
+<body>
+<div class="uk-container uk-container-center" style="margin-top:20px">
+    {% block content %}{% endblock %}
+</div>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/uikit.min.js"></script>
+<script src="/static/js/bundle.js"></script>
+</body>
+</html>

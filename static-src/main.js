@@ -4,9 +4,10 @@
 
 var React = require('react');
 var public_list = require("./public-list.jsx");
-console.log(public_list);
 
 React.render(
-      React.createElement(public_list, {url: "", pollInterval: 300000}),
+      React.createElement(public_list, {url: "/api/public/",
+            pollInterval: 5000,
+            initialItems: []}),
       document.getElementById("public_list")
 );

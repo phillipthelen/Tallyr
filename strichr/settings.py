@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'tally_sheet'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,3 +88,5 @@ STATICFILES_DIRS = (
 )
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'tally_sheet.TallyUser'

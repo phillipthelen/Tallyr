@@ -1,5 +1,5 @@
 """
-Django settings for strichr project.
+Django settings for tallyr project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -50,9 +50,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'strichr.urls'
+ROOT_URLCONF = 'tallyr.urls'
 
-WSGI_APPLICATION = 'strichr.wsgi.application'
+WSGI_APPLICATION = 'tallyr.wsgi.application'
 
 
 # Database
@@ -79,12 +79,12 @@ USE_L10N = True
 USE_TZ = True
 
 TEMPLATE_DIRS = (
-    '{0}/templates'.format(os.getcwd()),
+    '{0}/templates'.format(BASE_DIR),
 )
 
 STATICFILES_DIRS = (
-    '{0}/bower_components'.format(os.getcwd()),
-    '{0}/static'.format(os.getcwd()),
+    '{0}/bower_components'.format(BASE_DIR),
+    '{0}/static'.format(BASE_DIR),
 )
 
 STATIC_URL = '/static/'

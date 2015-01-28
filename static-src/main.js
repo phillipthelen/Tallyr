@@ -6,7 +6,7 @@ var React = require('react');
 var public_list = require("./public-list.jsx");
 
 React.render(
-      React.createElement(public_list, {url: "/api/public/",
+      React.createElement(public_list, {url: "/api/public/", add_url: "/api/tally/add/",
             pollInterval: 5000,
             initialItems: items_list}),
       document.getElementById("public_list")

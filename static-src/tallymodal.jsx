@@ -3,7 +3,11 @@ var React = require("react");
 var TallyItem = React.createClass({
     render: function() {
         return (
-            <li><a className="uk-button uk-button-success uk-button-large uk-width-1-1" style={{marginBottom:"15px", padding:"12px"}}>{this.props.item.name} - {this.props.item.value.toFixed(2)}€</a></li>
+            <li><a className="uk-button uk-button-success uk-button-large uk-width-1-1"
+                style={{marginBottom:"15px", padding:"12px"}}
+                onClick={this.props.addTally}>
+                {this.props.item.name} - {this.props.item.value.toFixed(2)}€
+            </a></li>
         )
     }
 });
@@ -36,8 +40,8 @@ var TallyModal = React.createClass({
             return <div id="tallyModal" className="uk-modal"></div>
         }
         var itemNodes = this.props.items.map(function(item) {
-            return (<TallyItem key={item.name} item={item} />);
-        });
+            return (<TallyItem key={item.name} item={item} addTally={this.props.addTally.bind(null, this.props.user, item.pk)} />);
+        }, this);
         return (
             <div id="tallyModal" className="uk-modal">
                 <div className="uk-modal-dialog uk-modal-dialog-large">

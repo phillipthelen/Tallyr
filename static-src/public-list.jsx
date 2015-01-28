@@ -80,6 +80,21 @@ var PublicList = React.createClass({
         this.setState({displayTallyModal: false, currentUser: undefined });
     },
 
+    addTally: function(user, item_key) {
+        $.ajax({
+            url: this.props.add_url,
+            dataType: 'json',
+            method: "POST",
+            data: {"user": user.username, "item": item_key},
+            success: function(data) {
+                this.setState({displayTallyModal: false}, this.loadUsers);
+            }.bind(this),
+                error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
     render: function() {
         var userNodes = this.state.users.map(function(user) {
             return (
@@ -95,7 +110,8 @@ var PublicList = React.createClass({
                     displayModal={this.state.displayTallyModal}
                     user={this.state.currentUser}
                     hideModalEvent={this.hideModalEvent}
-                    items={this.state.items} />
+                    items={this.state.items}
+                    addTally={this.addTally}/>
             </div>
         );
     }

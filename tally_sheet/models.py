@@ -24,7 +24,7 @@ class Item(models.Model):
 
 class Tally(models.Model):
 
-    created_on = models.DateTimeField(auto_created=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     paid_on = models.DateTimeField(null=True, blank=True)
 
     user = models.ForeignKey(TallyUser, related_name="tallies")

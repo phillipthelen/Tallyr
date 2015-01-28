@@ -13,6 +13,7 @@ var TallyModal = React.createClass({
     componentDidMount: function() {
         var hideModalEvent = this.props.hideModalEvent;
         $('#tallyModal').on({
+
             'hide.uk.modal': function(){
                 hideModalEvent();
             }
@@ -32,7 +33,7 @@ var TallyModal = React.createClass({
 
     render: function() {
         if (this.props.user == undefined) {
-            return <div></div>
+            return <div id="tallyModal" className="uk-modal"></div>
         }
         var itemNodes = this.props.items.map(function(item) {
             return (<TallyItem key={item.name} item={item} />);

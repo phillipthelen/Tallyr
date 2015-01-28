@@ -12,7 +12,19 @@ class PublicTallyApiView(ListAPIView):
 class AddTallyApiView(CreateAPIView):
     serializer_class = TallySerializer
 
-
+    def create(self, request, *args, **kwargs):
+        serializer = TallySerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            tally = serializer.instance
+            user = tally.user
+            if user.balance >= tally.item.value:
+                user.balance -= tally.item.value
+                user.save()
+                tally.paid_on = datetime.now()
+                tally.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 class ChangeBalanceApiView(APIView):
 

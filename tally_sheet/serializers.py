@@ -1,5 +1,5 @@
 __author__ = 'viirus'
-from rest_framework.serializers import ModelSerializer, SerializerMethodField, Serializer, SlugRelatedField
+from rest_framework.serializers import ModelSerializer, SerializerMethodField, Serializer, SlugRelatedField, FloatField
 from .models import Tally, Item, TallyUser
 from django.db.models import Count
 
@@ -41,9 +41,16 @@ class PublicTallyListSerializer(ModelSerializer):
         model = TallyUser
         fields = ("pk", "username", "first_name", "last_name", "balance", "public_tallies")
 
+
 class TallySerializer(ModelSerializer):
 
     user = SlugRelatedField(slug_field="username", queryset=TallyUser.objects.all())
 
     class Meta:
         model = Tally
+
+
+class BalanceSerializer(Serializer):
+
+    user = SlugRelatedField(slug_field="username", queryset=TallyUser.objects.all())
+    balance_change = FloatField()

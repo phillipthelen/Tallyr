@@ -49,7 +49,8 @@ var PublicList = React.createClass({
             users: [],
             items: this.props.initialItems,
             displayTallyModal: false,
-            selectedUser: null
+            currentUser: null,
+            balance_change: 0.0
         }
     },
 
@@ -73,7 +74,7 @@ var PublicList = React.createClass({
     },
 
     handleUserSelect: function(user) {
-        this.setState({displayTallyModal: !this.state.displayTallyModal, currentUser:user});
+        this.setState({displayTallyModal: !this.state.displayTallyModal, currentUser:user, balance_change: 0});
     },
 
     hideModalEvent: function() {
@@ -95,6 +96,35 @@ var PublicList = React.createClass({
         });
     },
 
+    handleBalanceSubmit: function() {
+        $.ajax({
+            url: this.props.change_balance_url,
+            dataType: 'json',
+            method: "POST",
+            data: {"user": this.state.currentUser.username, "balance_change": this.state.balance_change},
+            success: function(data) {
+                this.setState({displayTallyModal: false}, this.loadUsers);
+            }.bind(this),
+                error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+
+    changeBalance: function(event) {
+            this.setState({balance_change: event.target.value});
+    },
+
+    changeBalanceSign: function(sign) {
+        var balance_change = this.state.balance_change;
+        if (sign === "+") {
+            balance_change = Math.abs(balance_change);
+        } else {
+            balance_change = -Math.abs(balance_change);
+        }
+        this.setState({balance_change: balance_change});
+    },
+
     render: function() {
         var userNodes = this.state.users.map(function(user) {
             return (
@@ -111,7 +141,11 @@ var PublicList = React.createClass({
                     user={this.state.currentUser}
                     hideModalEvent={this.hideModalEvent}
                     items={this.state.items}
-                    addTally={this.addTally}/>
+                    addTally={this.addTally}
+                    balance_change={this.state.balance_change}
+                    changeBalance={this.changeBalance}
+                    changeBalanceSign={this.changeBalanceSign}
+                    handleBalanceSubmit={this.handleBalanceSubmit}/>
             </div>
         );
     }

@@ -12,6 +12,31 @@ var TallyItem = React.createClass({
     }
 });
 
+var BalanceForm = React.createClass({
+    render: function() {
+
+        var plus_classes = this.props.balance_change >= 0 ? "uk-active uk-button-success" : "";
+        var minus_classes = this.props.balance_change < 0 ? "uk-active uk-button-danger" : "";
+
+        return (
+            <div className="uk-grid">
+                <div className="uk-width-1-3">
+                    <div className="uk-button-group uk-width-1-1">
+                        <button className={"uk-button uk-width-1-2 uk-button-large "+plus_classes} onClick={this.props.changeBalanceSign.bind(null, "+")}>+</button>
+                        <button className={"uk-button uk-width-1-2 uk-button-large "+minus_classes} onClick={this.props.changeBalanceSign.bind(null, "-")}>-</button>
+                    </div>
+                </div>
+                <div className="uk-width-2-3">
+                    <input type="text"
+                        className="uk-form-large uk-width-1-1"
+                        value={this.props.balance_change}
+                        onChange={this.props.changeBalance}></input>
+                </div>
+            </div>
+        )
+    }
+});
+
 var TallyModal = React.createClass({
 
     componentDidMount: function() {
@@ -56,7 +81,12 @@ var TallyModal = React.createClass({
                         </li>
                         <li>
                             <h3>Change Ballance</h3>
-
+                            <BalanceForm balance_change={this.props.balance_change}
+                                changeBalance={this.props.changeBalance}
+                                changeBalanceSign={this.props.changeBalanceSign} />
+                            <button className="uk-button uk-width-1-1 uk-button-large uk-button-success"
+                                onClick={this.props.handleBalanceSubmit}>Change Balance
+                            </button>
                         </li>
                     </ul>
                 </div>

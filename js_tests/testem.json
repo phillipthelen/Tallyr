@@ -1,0 +1,4 @@
+{
+  "before_tests": "npm run build-test",
+  "test_page": "js_tests/test_tallyr.html#testem"
+}

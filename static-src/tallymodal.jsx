@@ -94,4 +94,5 @@ var TallyModal = React.createClass({
         )
     }
 });
-module.exports = TallyModal
+module.exports = TallyModal;
+module.exports.BalanceForm = BalanceForm;

@@ -1,4 +1,7 @@
 {
-  "before_tests": "npm run build-test",
-  "test_page": "js_tests/test_tallyr.html#testem"
+  "framework": "jasmine2",
+  "src_files": [
+    "static/js/jquery.min.js",
+    "js_tests/test_bundle.js"
+  ]
 }

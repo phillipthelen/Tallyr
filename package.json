@@ -3,7 +3,7 @@
     "start": "watchify -d static-src/main.js -o static/js/bundle.js -v",
     "build": "NODE_ENV=production browserify static-src/main.js | uglifyjs -cm > static/js/bundle.min.js",
     "build-test": "browserify js_tests/src/main_test.js --noparse /Users/viirus/Code/tallyr/node_modules/jstest/jstest.js > js_tests/test_bundle.js",
-    "watch-test": "watchify js_tests/src/main_test.js --noparse /Users/viirus/Code/tallyr/node_modules/jstest/jstest.js -o js_tests/test_bundle.js"
+    "watch-test": "watchify js_tests/src/main_test.js --noparse /Users/viirus/Code/tallyr/node_modules/jstest/jstest.js -o js_tests/test_bundle.js -v"
   },
   "browserify": {
     "transform": [
@@ -19,5 +19,8 @@
   "dependencies": {
     "jquery": "^2.1.3",
     "jstest": "^1.0.5"
+  },
+  "devDependencies": {
+    "jasmine-react-helpers": "^0.2.2"
   }
 }

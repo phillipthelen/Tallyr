@@ -70,7 +70,11 @@ var PublicList = React.createClass({
 
     componentDidMount: function() {
         this.loadUsers();
-        setInterval(this.loadUsers, this.props.pollInterval);
+        this.interval = setInterval(this.loadUsers, this.props.pollInterval);
+    },
+
+    componentWillUnmount: function() {
+        clearInterval(this.interval);
     },
 
     handleUserSelect: function(user) {
@@ -133,7 +137,7 @@ var PublicList = React.createClass({
         }, this);
         return (
             <div>
-                <ul className="uk-grid uk-grid-width-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid-margin>
+                <ul id="user_list" className="uk-grid uk-grid-width-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid-margin>
                     {userNodes}
                 </ul>
                 <TallyModal

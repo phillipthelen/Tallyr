@@ -3,3 +3,4 @@ db.sqlite3
 .idea/
 node_modules/
 bower_components/
+js_tests/.DS_Store

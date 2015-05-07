@@ -30,7 +30,7 @@ var UserEntry = React.createClass({
            return (<TallyEntry tally={tally} key={tally.item__pk} />);
         });
         return (
-            <li onClick={this.props.onClick} style={{marginBottom:"20px"}}>
+            <li onClick={this.props.onClick} style={{marginBottom:"20px", cursor:"pointer"}}>
                 <div className="uk-panel uk-panel-box">
                     <BalanceBadge balance={this.props.user.balance} key={this.props.user.username+"balance"} />
                     <h3 className="uk-panel-title">{this.props.user.username}</h3>

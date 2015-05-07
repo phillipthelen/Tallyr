@@ -4,7 +4,7 @@ var TallyItem = React.createClass({
     render: function() {
         return (
             <li><a className="uk-button uk-button-success uk-button-large uk-width-1-1"
-                style={{marginBottom:"15px", padding:"12px"}}
+                style={{marginBottom:"15px", padding:"12px", cursor:"pointer"}}
                 onClick={this.props.addTally}>
                 {this.props.item.name} - {this.props.item.value.toFixed(2)}€
             </a></li>

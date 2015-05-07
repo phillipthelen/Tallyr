@@ -6,6 +6,7 @@ from tally_sheet.api import PublicTallyApiView, AddTallyApiView, ChangeBalanceAp
 admin.autodiscover()
 
 urlpatterns = patterns('',
+                       url(r'^$', PublicView.as_view(), name="public"),
                        url(r'^public/$', PublicView.as_view(), name="public"),
 
                        url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'},

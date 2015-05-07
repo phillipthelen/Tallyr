@@ -6,7 +6,7 @@ from .serializers import PublicTallyListSerializer, TallySerializer, BalanceSeri
 from datetime import datetime
 
 class PublicTallyApiView(ListAPIView):
-    queryset = TallyUser.objects.filter(public=True)
+    queryset = TallyUser.objects.filter(public=True).order_by("username")
     serializer_class = PublicTallyListSerializer
 
 class AddTallyApiView(CreateAPIView):

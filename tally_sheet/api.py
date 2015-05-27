@@ -38,13 +38,13 @@ class ChangeBalanceApiView(APIView):
             balance = user.balance + data["balance_change"]
 
             if tallies.count() > 0:
-                tally = tallies[0]
-                while balance >= tally.item.value:
-                    balance = round(balance-tally.item.value, 2)
-                    tally.paid_on = datetime.now()
-                    tally.save()
-                    if tallies.count() > 0:
-                        tally = tallies[0]
+                for tally in tallies:
+                    if balance >= tally.item.value:
+                        balance = round(balance-tally.item.value, 2)
+                        tally.paid_on = datetime.now()
+                        tally.save()
+                    else:
+                        break
             user.balance = balance
             user.save()
             user_serializer = PublicTallyListSerializer(instance=user)

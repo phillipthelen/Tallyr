@@ -50,7 +50,8 @@ var PublicList = React.createClass({
             items: this.props.initialItems,
             displayTallyModal: false,
             currentUser: null,
-            balance_change: 0.0
+            balance_change: 0.0,
+            connectionError: false
         }
     },
 
@@ -60,10 +61,11 @@ var PublicList = React.createClass({
           url: this.props.url,
           dataType: 'json',
           success: function(data) {
-            this.setState({users: data});
+            this.setState({users: data, connectionError: false});
           }.bind(this),
           error: function(xhr, status, err) {
-            console.error(this.props.url, status, err.toString());
+              console.error(this.props.url, status, err.toString());
+              this.setState({connectionError: true})
           }.bind(this)
         });
     },
@@ -95,7 +97,8 @@ var PublicList = React.createClass({
                 this.setState({displayTallyModal: false}, this.loadUsers);
             }.bind(this),
                 error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
+                    console.error(this.props.url, status, err.toString());
+                    this.setState({connectionError: true})
             }.bind(this)
         });
     },
@@ -110,7 +113,8 @@ var PublicList = React.createClass({
                 this.setState({displayTallyModal: false}, this.loadUsers);
             }.bind(this),
                 error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
+                    console.error(this.props.url, status, err.toString());
+                    this.setState({connectionError: true})
             }.bind(this)
         });
     },
@@ -135,8 +139,13 @@ var PublicList = React.createClass({
                 <UserEntry user={user} key={user.username} onClick={this.handleUserSelect.bind(this, user)} />
             )
         }, this);
+        var connectionErrorNode = this.state.connectionError ? <div className="uk-alert uk-alert-danger uk-alert-large" data-uk-alert="">
+                                <h2>Connection Error</h2>
+                                <p>Could not connect to server.</p>
+                            </div> : "";
         return (
             <div>
+                {connectionErrorNode}
                 <ul id="user_list" className="uk-grid uk-grid-width-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid-margin>
                     {userNodes}
                 </ul>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from .models import Item
 
+
 class PublicView(TemplateView):
     template_name = "public.html"
 

@@ -5,9 +5,11 @@ from .models import TallyUser
 from .serializers import PublicTallyListSerializer, TallySerializer, BalanceSerializer
 from datetime import datetime
 
+
 class PublicTallyApiView(ListAPIView):
     queryset = TallyUser.objects.filter(public=True).order_by("username")
     serializer_class = PublicTallyListSerializer
+
 
 class AddTallyApiView(CreateAPIView):
     serializer_class = TallySerializer
@@ -25,6 +27,7 @@ class AddTallyApiView(CreateAPIView):
                 tally.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
 
 class ChangeBalanceApiView(APIView):
 

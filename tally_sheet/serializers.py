@@ -34,7 +34,8 @@ class PublicTallyListSerializer(ModelSerializer):
         return balance
 
     def get_public_tallies(self, obj):
-        tallies = obj.tallies.filter(paid_on=None).values("item__name", "item__pk", "item__value").annotate(tally_count=Count("item__pk"))
+        tallies = obj.tallies.filter(paid_on=None).values("item__name", "item__pk",
+                                                          "item__value").annotate(tally_count=Count("item__pk"))
         return tallies
 
     class Meta:

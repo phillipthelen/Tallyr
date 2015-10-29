@@ -15,7 +15,7 @@ class AddTallyApiView(CreateAPIView):
     serializer_class = TallySerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = TallySerializer(data=request.DATA)
+        serializer = TallySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             tally = serializer.instance
@@ -32,7 +32,7 @@ class AddTallyApiView(CreateAPIView):
 class ChangeBalanceApiView(APIView):
 
     def post(self, request):
-        serializer = BalanceSerializer(data=request.DATA)
+        serializer = BalanceSerializer(data=request.data)
 
         if serializer.is_valid():
             data = serializer.data
